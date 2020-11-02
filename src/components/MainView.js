@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./App";
 
 import UserInfo from "./components/UserInfo";
 import PhotoElement from "./components/PhotoElement";
@@ -21,27 +20,6 @@ const unsplash = new Unsplash({
     // Важно: этот адрес обязательно должен быть указан в настройках приложения
     callbackUrl: 'http://localhost:3000'
 });
-// // Генерируем адрес страницы аутентификации на unsplash.com
-// // и указываем требуемые разрешения (permissions)
-// const authenticationUrl = unsplash.auth.getAuthenticationUrl([
-// 	"public",
-// 	"write_likes"
-// 	]);
-// // Отправляем пользователя по этому адресу
-// window.location.assign(authenticationUrl);
-// // Считываем GET-параметр code из URL
-// const code = window.location.search.split('code=')[1];
-// // Если код передан, отправляем запрос на получение токена
-// if (code) {
-// 	unsplash.auth.userAuthentication(code)
-// 	.then(toJson)
-// 	.then(json => {
-// 		unsplash.auth.setBearerToken(json.access_token);
-//  // Теперь можно сделать что-то от имени пользователя
-//  // Например, поставить лайк фотографии
-//  // unsplash.photos.likePhoto("kBJEJqWNtNY");
-// 	});
-// }
 
 //забираем с Unsplash 10 рандомных фото
 unsplash.photos.listPhotos(2, 10, "latest")
@@ -60,25 +38,25 @@ unsplash.photos.listPhotos(2, 10, "latest")
             render() {
                 return (
                     <div className="container">
-                    {this.state.photos.map((item , i) =>
-                        <div key={i} className="photo">
-                            <PhotoElement
-                            url={item.urls.regular}
-                            alt={item.alt_description}
-                            />
-                            <UserInfo
-                            user={item.user.username}
-                            html={item.user.links.html}
-                            />
-                            <DateCreated
-                            date={item.created_at}
-                            />
-                            <LikesSum
-                            likes={item.likes}
-                            />
-                        </div>
+                        {this.state.photos.map((item , i) =>
+                            <div key={i} className="photo">
+                                <PhotoElement
+                                    url={item.urls.regular}
+                                    alt={item.alt_description}
+                                />
+                                <UserInfo
+                                    user={item.user.username}
+                                    html={item.user.links.html}
+                                />
+                                <DateCreated
+                                    date={item.created_at}
+                                />
+                                <LikesSum
+                                    likes={item.likes}
+                                />
+                            </div>
                         )
-                    }
+                        }
                     </div>
                 )
             }
