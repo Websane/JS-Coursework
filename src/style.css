@@ -1,6 +1,41 @@
-.app {
-    max-width: 1900px;
-    height: 100vh;
+body {
+    margin: 0;
+    padding: 0;
 }
 
 
+.app {
+    max-width: 1600px;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+
+
+}
+
+.photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    max-width: 400px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.more__button {
+    position: absolute;
+    bottom: 0;
+    left: 45%;
+
+}
