@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {fetchPhotos} from "../action/fetchPhotosAction";
@@ -8,6 +8,7 @@ const MoreButton = () => {
     const photos = useSelector(state => state.wall.photos);
     const page = useSelector(state => state.wall.page);
     const perPage = useSelector(state => state.wall.perPage);
+    // const [page, setPage] = useState(1)
 
     const scrollPosition = useScroll();
 
@@ -16,6 +17,7 @@ const MoreButton = () => {
     //пишем обработчик клика, чтобы загружать следующий комплект фото
     const handlerLoadNextPage = useCallback(() => {
         const newPage = page + 1;
+        // const newPage = setPage((prevPage) => prevPage + 1)
         dispatch(fetchPhotos(newPage, perPage));
     }, [page, perPage])
 
