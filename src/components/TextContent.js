@@ -1,18 +1,12 @@
 import React from "react";
 
 const TextContent = ({ text }) => {
+    const date = new Date(text.created_at).toLocaleString();
+
     return(
         <div className='userInfo'>
-            <div>
-                Автор фото:
-                <a href={text.user.links.html}> {text.user.username}</a>
-            </div>
-            <div>
-                Дата размещения: {text.created_at}
-            </div>
-            <div>
-                Понравилось: {text.likes}
-            </div>
+            <a className='userInfo__link' href={text.user.links.html}>{text.user.username}</a>
+            <small className='userInfo__date'>{date}</small>
         </div>
     );
 }

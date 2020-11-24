@@ -12,7 +12,8 @@ const photosReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case FETCH_PHOTOS:
-            let newPhotos = state.photos.concat(action.payload.photos)
+            let newPhotos = state.photos.concat(action.payload.photos);
+            // localStorage.setItem('photosLocal', JSON.stringify(newPhotos));
             console.log(newPhotos)
             return { ...state, photos: newPhotos, page: action.payload.page }
         default: return state

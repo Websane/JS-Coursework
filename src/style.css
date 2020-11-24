@@ -2,58 +2,94 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-color: white;
 }
 
-
 .app {
-
     height: 100vh;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: inherit;
+}
+
+button {
+    padding: 0;
+    background: none;
+    font: inherit;
+    border: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .container {
     margin: 0 auto;
-    max-width: 1600px;
-    background-color: #130f26;
+    padding: 0 50px;
+    max-width: 1920px;
 }
 
-.photosWrapper {
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
+}
+
+.header__content {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth {
+    padding: 10px 30px;
+    border: 2px solid rgba(187, 218, 240, 0.8);
+}
+
+.wall__container {
     position: relative;
-    padding: 30px;
+    padding-top: 70px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    color: aliceblue;
+    color: black;
 }
 
 .photo {
+    position: relative;
     margin: 0 0 20px 0;
+    padding: 0 0 10px 0;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    min-width: 300px;
-    background: black;
+    background-color: rgba(187, 218, 240, 0.8);
+}
+
+.image__container {
+    position: relative;
+}
+
+.photo__image {
+    margin-bottom: 20px;
+    padding: 0 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(187, 218, 240, 0.8);
 }
 
 .photoView {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 100%;
     height: 100%;
-}
-
-/*.photoView:hover {*/
-/*    cursor: pointer;*/
-/*}*/
-
-.photoView:active {
-    box-shadow: 0px 1px 5px 4px rgba(162,164,197,0.35);
 }
 
 .photoLink {
@@ -62,6 +98,7 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
+    cursor: zoom-in;
 }
 
 .photoElement {
@@ -73,13 +110,84 @@ a {
 .userInfo {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+}
+
+.userInfo__link {
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.textContent {
+    width: 90%;
+    display: flex;
     align-items: center;
-    color: aliceblue;
+    justify-content: space-between;
 }
 
 .more__button {
     position: absolute;
     bottom: 0;
     left: 45%;
+}
 
+.likes {
+    /*position: absolute;*/
+    /*top: 3%;*/
+    /*right: 5%;*/
+    padding: 0;
+    display: flex;
+    align-items: center;
+    /*background-color: rgba(187, 218, 240, 0.8);*/
+}
+
+.likes__number {
+    margin-right: 5px;
+}
+
+.likes__button {
+    width: 25px;
+    height: 25px;
+    background-image: url('./img/heart.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.likes__button:hover {
+    animation: likebeat 0.5s infinite;
+}
+
+@keyframes likebeat {
+    0% {
+        transform: scale( 1 );
+    }
+    10% {
+        transform: scale( 1.2 )
+    }
+    30% {
+        transform: scale( 1.3 )
+    }
+}
+
+
+.back {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.back::before {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-image: url('./img/back.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+hidden {
+    visibility: hidden;
 }

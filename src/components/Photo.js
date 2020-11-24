@@ -1,20 +1,23 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const Photo = ({ photo, index, quality }) => {
+const Photo = ({ photo, index, quality}) => {
 
-    let size;
+    let element
 
     if (!quality) {
-        size = photo.urls.thumb
+        element =
+            <>
+                <img className='photoElement' src={photo.urls.small} alt={photo.alt_description} />
+                <Link className='photoLink' to={`/photo/${index}`} />
+            </>
     } else {
-        size = photo.urls.regular
+        element = <img className='photoElement' src={photo.urls.regular} alt={photo.alt_description}/>
     }
 
     return (
         <div className="photoView">
-            <img className='photoElement' src={size} alt={photo.alt_description}/>
-            <NavLink className='photoLink' to={`/photo/${index}`} />
+            {element}
         </div>
     )
 }
