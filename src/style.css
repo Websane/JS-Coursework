@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -26,15 +30,14 @@ button {
 .container {
     margin: 0 auto;
     padding: 0 50px;
-    max-width: 1920px;
+    max-width: 2560px;
 }
 
 .header {
     position: fixed;
     width: 100%;
     z-index: 50;
-    background: #FFFFFF;
-    -webkit-box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
+    background: white;
     box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
 }
 
@@ -46,29 +49,113 @@ button {
 }
 
 .auth {
-    padding: 10px 30px;
+    position: relative;
+    padding: 11px 30px 10px 30px;
     border: 2px solid rgba(187, 218, 240, 0.8);
+    cursor: pointer;
+    text-transform: uppercase;
+    line-height: 1;
+    /*overflow: hidden;*/
+    transition: 1s;
+    color: black;
+}
+
+.auth:hover {
+    animation: authcolor 1s infinite;
+}
+
+@keyframes authcolor {
+    0% {
+        background: rgba(187, 218, 240, 0);
+    }
+    10% {
+        background: rgba(187, 218, 240, 0.4);
+    }
+    30% {
+        background: rgba(187, 218, 240, 0.8);
+    }
+    40% {
+        background: rgba(187, 218, 240, 1.0);
+    }
+    50% {
+        background: rgba(142, 209, 234, 1.0);
+    }
+    60% {
+        background: rgba(142, 209, 234, 0.8);
+    }
+    70% {
+        background: rgba(142, 209, 234, 0.4);
+    }
+    80% {
+        background: rgba(142, 209, 234, 0);
+    }
+}
+
+.wall {
+    position: relative;
+    height: 100vh;
 }
 
 .wall__container {
     position: relative;
     padding-top: 70px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wall__photos {
+    position: relative;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+    justify-content: center;
+    grid-gap: 2vw;
     color: black;
+}
+
+.loadingPhoto {
+    position: absolute;
+    bottom: 0;
+    left: 48%;
+}
+
+.more__button {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 150px;
+    align-self: center;
+    overflow: hidden;
+    border: 2px solid #91d8f5;
+    transition: 0.2s ease;
+}
+
+.more__button::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #91d8f5;
+    transition: transform 0.2s ease;
+}
+
+.more__button:hover::before {
+    transform: translateY(-100%);
+    transition: transform 0.2s ease;
 }
 
 .photo {
     position: relative;
-    margin: 0 0 20px 0;
-    padding: 0 0 10px 0;
     max-width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(187, 218, 240, 0.8);
 }
 
 .image__container {
@@ -76,19 +163,16 @@ button {
 }
 
 .photo__image {
-    margin-bottom: 20px;
-    padding: 0 0 10px 0;
+    height: 100vh;
+    min-width: 320px;
+    padding: 70px 0 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(187, 218, 240, 0.8);
 }
 
 .photoView {
-    position: relative;
-    margin-bottom: 10px;
-    width: 100%;
     height: 100%;
 }
 
@@ -96,15 +180,22 @@ button {
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 0;
+    bottom: 70px;
     left: 0;
     cursor: zoom-in;
 }
 
 .photoElement {
+    position: relative;
+    display: block;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 70px);
     object-fit: cover;
+}
+
+.photoBig {
+    width: auto;
+    object-fit: contain;
 }
 
 .userInfo {
@@ -119,26 +210,19 @@ button {
 }
 
 .textContent {
-    width: 90%;
+    height: 70px;
+    width: 100%;
+    padding: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.more__button {
-    position: absolute;
-    bottom: 0;
-    left: 45%;
+    background-color: rgba(187, 218, 240, 0.8);
 }
 
 .likes {
-    /*position: absolute;*/
-    /*top: 3%;*/
-    /*right: 5%;*/
     padding: 0;
     display: flex;
     align-items: center;
-    /*background-color: rgba(187, 218, 240, 0.8);*/
 }
 
 .likes__number {
@@ -154,8 +238,16 @@ button {
     background-size: contain;
 }
 
+.likeOn {
+    filter: invert(35%) sepia(93%) saturate(7459%) hue-rotate(355deg) brightness(102%) contrast(128%);
+}
+
 .likes__button:hover {
     animation: likebeat 0.5s infinite;
+}
+
+.likeOn:hover {
+
 }
 
 @keyframes likebeat {
@@ -190,4 +282,10 @@ button {
 
 hidden {
     visibility: hidden;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 0 10px;
+    }
 }

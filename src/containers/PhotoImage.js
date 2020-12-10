@@ -1,40 +1,39 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import TextContent from "../components/TextContent";
+import {useHistory} from "react-router-dom";
+
 import Photo from "../components/Photo";
-import Likes from "../components/Likes";
-import {backView} from "../action/backVew";
+import {backView} from "../action/backActions";
 
 const PhotoImage = ({ match }) => {
-    //забираем массив со всеми фото
     const photos = useSelector(state => state.wall.photos);
-    const back = useSelector(state => state.interaction.back);
 
     const dispatch = useDispatch();
 
-    let scrollPosition = JSON.parse(localStorage.getItem('scroll'));
-
+    const history = useHistory();
+    //отображаем кнопку "назад"
     useEffect(() => {
-        dispatch(backView(!back, scrollPosition));
+            dispatch(backView(true));
     }, []);
 
     //забираем id фото из роутера
     const {params: {photoId} } = match;
     //ищем в массиве фотографий нужное фото по id
-    const photo = photos.find(item => item.id === photoId);
-
-    return (
-        <div className="image__container container">
-            <div className="photo__image">
-                <Photo photo={photo} index={photoId} quality={true} />
-                <div className="textContent">
-                    <TextContent text={photo} />
-                    <Likes like={photo} />
+    // const photo = photos.find(item => item.id === photoId);
+    const photo = photos.find(({id}) => id === photoId);
+    //если обновляем страницу на просмотре фото
+    if (photos.length === 0) {
+        history.push('/');
+        return <></>
+    } else {
+        return (
+            <div className="image__container container">
+                <div className="photo__image">
+                    <Photo photo={photo} photoId={photoId} quality={true} />
                 </div>
             </div>
-        </div>
-    )
-
+        )
+    }
 }
 
 export default PhotoImage;

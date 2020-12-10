@@ -1,11 +1,19 @@
 import React from "react";
 
-function Auth () {
 
+function Auth ({ url, text, handle }) {
+    let element
+    if (url !== '/') {
+        element = <a href={url} className="auth">
+            {text}
+    </a>
+    } else {
+        element = <button className="auth" onClick={handle}>{text}</button>
+    }
     return (
-        <button className="auth">
-            Войти
-        </button>
+        <>
+        {element}
+        </>
     )
 }
 

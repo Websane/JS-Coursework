@@ -1,17 +1,17 @@
-import {BACK_VIEW} from "../action/types";
+import {BACK_VIEW} from "../action/backActions";
 
 let initialState = {
-    back: true,
-    scrollPosition: null,
+    back: false,
 }
 
 const backReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case BACK_VIEW:
-            let back = action.back;
-            let scrollPosition = action.scrollPosition;
-            return { ...state, back: back, scrollPosition: scrollPosition }
+            const {back} = action;
+            return {
+                ...state,
+                back,
+            }
         default: return state
     }
 }

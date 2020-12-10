@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MoreButton = ({handleClick}) => {
+const MoreButton = ({ handleClick }) => {
 
     return (
         <button className="more__button" onClick={handleClick}>
