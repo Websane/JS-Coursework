@@ -4,7 +4,7 @@ import {AUTH_REQUEST,
 } from "../action/authActions";
 
 const initialState = {
-    status: 'success', //'loading' 'error'
+    status: 'init', //'success' 'loading' 'error'
     url: '/',
     errorMessage: '',
     loading: false,

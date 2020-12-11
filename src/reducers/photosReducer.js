@@ -6,7 +6,7 @@ import {
 import {SET_PHOTO_LIKES} from "../action/likeActions";
 
 const initialState = {
-    status: 'success', //'loading' 'error'
+    status: 'init', //'success' 'loading' 'error'
     photos: [],
     page: 1,
     perPage: 10,

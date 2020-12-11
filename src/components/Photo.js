@@ -29,3 +29,20 @@ const Photo = ({ photo, photoId, quality }) => {
 }
 
 export default Photo;
+// const Photo = ({ photo, photoId, quality }) => {
+//
+//     const element = quality ? {string: ' photoBig', size: 'regular'} : {size: 'small'}
+//
+//     return (
+//         <div className="photoView">
+//             <img className={`photoElement${element.string}`} src={photo.urls.(element.size)} alt={photo.alt_description} />
+//             <Link className='photoLink' to={`/photo/${photoId}`} />
+//             <div className="textContent">
+//                 <TextContent text={photo} />
+//                 <Likes like={photo.likes} myLike={photo.liked_by_user} photoId={photoId} />
+//             </div>
+//         </div>
+//     )
+// }
+//
+// export default Photo;

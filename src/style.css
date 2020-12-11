@@ -39,6 +39,16 @@ button {
     z-index: 50;
     background: white;
     box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
+    animation: showHeader 0.2s linear forwards;
+}
+
+@keyframes showHeader {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .header__content {
@@ -56,44 +66,17 @@ button {
     text-transform: uppercase;
     line-height: 1;
     /*overflow: hidden;*/
-    transition: 1s;
+    will-change: transform;
+    transition: 0.2s linear;
     color: black;
 }
 
 .auth:hover {
-    animation: authcolor 1s infinite;
-}
-
-@keyframes authcolor {
-    0% {
-        background: rgba(187, 218, 240, 0);
-    }
-    10% {
-        background: rgba(187, 218, 240, 0.4);
-    }
-    30% {
-        background: rgba(187, 218, 240, 0.8);
-    }
-    40% {
-        background: rgba(187, 218, 240, 1.0);
-    }
-    50% {
-        background: rgba(142, 209, 234, 1.0);
-    }
-    60% {
-        background: rgba(142, 209, 234, 0.8);
-    }
-    70% {
-        background: rgba(142, 209, 234, 0.4);
-    }
-    80% {
-        background: rgba(142, 209, 234, 0);
-    }
+    transform: scale(1.1, 1.1);
 }
 
 .wall {
     position: relative;
-    height: 100vh;
 }
 
 .wall__container {
@@ -106,7 +89,7 @@ button {
 
 .wall__photos {
     position: relative;
-    margin-bottom: 10px;
+    /*margin-bottom: 50px;*/
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
     justify-content: center;
@@ -115,9 +98,10 @@ button {
 }
 
 .loadingPhoto {
-    position: absolute;
-    bottom: 0;
-    left: 48%;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
 }
 
 .more__button {
@@ -156,6 +140,16 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    animation: showPhoto 0.2s linear forwards;
+}
+
+@keyframes showPhoto {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .image__container {
@@ -183,6 +177,12 @@ button {
     bottom: 70px;
     left: 0;
     cursor: zoom-in;
+    transition: 0.2s linear;
+}
+
+.photoLink:hover {
+    background: rgba(187, 218, 240, 0.2);
+    transition: 0.2s linear;
 }
 
 .photoElement {

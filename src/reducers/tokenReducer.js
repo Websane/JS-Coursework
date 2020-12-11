@@ -1,11 +1,12 @@
 import {
+    TOKEN_DELETE,
     TOKEN_REQUEST,
     TOKEN_REQUEST_ERROR,
     TOKEN_REQUEST_SUCCESS
-} from "../action/authActions";
+} from "../action/tokenActions";
 
 const initialState = {
-    status: 'success', //'loading' 'error'
+    status: 'init', //'success' 'loading' 'error'
     errorMessage: '',
     loading: false,
 };
@@ -30,6 +31,11 @@ const tokenReducer = (state = initialState, action) => {
                 status: 'error',
                 errorMessage: action.error,
                 loading: false,
+            }
+        case TOKEN_DELETE:
+            return {
+                ...state,
+                status: 'init',
             }
         default: return state
     }

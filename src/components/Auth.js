@@ -3,7 +3,7 @@ import React from "react";
 
 function Auth ({ url, text, handle }) {
     let element
-    if (url !== '/') {
+    if (text === 'Авторизация') {
         element = <a href={url} className="auth">
             {text}
     </a>

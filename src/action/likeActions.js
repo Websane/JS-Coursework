@@ -22,16 +22,16 @@ export const likeRequestError = (error) => ({
     error,
 })
 
-export const unLikeRequest = () => ({
-    type: LIKE_REQUEST,
-})
-export const unLikeRequestSuccess = () => ({
-    type: LIKE_REQUEST_SUCCESS,
-})
-export const unLikeRequestError = (error) => ({
-    type: LIKE_REQUEST_ERROR,
-    error,
-})
+// export const unLikeRequest = () => ({
+//     type: LIKE_REQUEST,
+// })
+// export const unLikeRequestSuccess = () => ({
+//     type: LIKE_REQUEST_SUCCESS,
+// })
+// export const unLikeRequestError = (error) => ({
+//     type: LIKE_REQUEST_ERROR,
+//     error,
+// })
 
 export const setPhotoLikes = (id, likes, myLike) => ({
     type: SET_PHOTO_LIKES,
@@ -40,33 +40,43 @@ export const setPhotoLikes = (id, likes, myLike) => ({
     myLike,
 })
 
-export const pushLike = (id) => (dispatch) => {
-        dispatch(likeRequest());
-        unsplash.photos.likePhoto(id)
+// export const pushLike = (id) => (dispatch) => {
+//         dispatch(likeRequest());
+//         unsplash.photos.likePhoto(id)
+//         .then(toJson)
+//         .then(
+//                 dispatch(likeRequestSuccess())
+//         )
+//         .catch(error => {
+//             console.log(error);
+//             dispatch(likeRequestError(String(error)));
+//         })
+// }
+//
+// export const unLike = (id) => (dispatch) => {
+//     dispatch(unLikeRequest());
+//     unsplash.photos.unlikePhoto(id)
+//         .then(toJson)
+//         .then(
+//                 dispatch(unLikeRequestSuccess())
+//         )
+//         .catch(error => {
+//             console.log(error);
+//             dispatch(unLikeRequestError(String(error)));
+//         })
+// }
+
+export const setLikes = (id, likes, myLikes) => (dispatch) => {
+    dispatch(setPhotoLikes(id, likes, myLikes));
+}
+//редюсер для setLike в photosReducer
+export const setLike =(like, id) => (dispatch) => {
+    dispatch(likeRequest());
+    unsplash.photos[like ? 'unlikePhoto' : 'likePhoto'](id)
         .then(toJson)
-        .then(
-                dispatch(likeRequestSuccess())
-        )
+        .then(dispatch(likeRequestSuccess()))
         .catch(error => {
             console.log(error);
             dispatch(likeRequestError(String(error)));
         })
 }
-
-export const unLike = (id) => (dispatch) => {
-    dispatch(unLikeRequest());
-    unsplash.photos.unlikePhoto(id)
-        .then(toJson)
-        .then(
-                dispatch(unLikeRequestSuccess())
-        )
-        .catch(error => {
-            console.log(error);
-            dispatch(unLikeRequestError(String(error)));
-        })
-}
-
-export const setLikes = (id, likes, myLikes) => (dispatch) => {
-    dispatch(setPhotoLikes(id, likes, myLikes));
-}
-
