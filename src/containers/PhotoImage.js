@@ -14,7 +14,7 @@ const PhotoImage = ({ match }) => {
     //отображаем кнопку "назад"
     useEffect(() => {
             dispatch(backView(true));
-    }, []);
+    }, [dispatch]);
 
     //забираем id фото из роутера
     const {params: {photoId} } = match;
@@ -27,11 +27,11 @@ const PhotoImage = ({ match }) => {
         return <></>
     } else {
         return (
-            <div className="image__container container">
-                <div className="photo__image">
+            <section className="image">
+                <div className="image__container container">
                     <Photo photo={photo} photoId={photoId} quality={true} />
                 </div>
-            </div>
+            </section>
         )
     }
 }

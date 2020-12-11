@@ -1,18 +1,26 @@
 import React from "react";
 
-
 function Auth ({ url, text, handle }) {
-    let element
-    if (text === 'Авторизация') {
-        element = <a href={url} className="auth">
+    const element = text === 'Войти' ?
+        <a
+            href={url}
+            className="header__auth"
+            aria-label="авторизоваться"
+        >
             {text}
-    </a>
-    } else {
-        element = <button className="auth" onClick={handle}>{text}</button>
-    }
+        </a>
+        :
+        <button
+            className="header__auth"
+            onClick={handle}
+            aria-label="отменить авторизацию"
+        >
+            {text}
+        </button>
+
     return (
         <>
-        {element}
+            {element}
         </>
     )
 }

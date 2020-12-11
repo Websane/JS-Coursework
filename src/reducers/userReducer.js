@@ -1,30 +1,32 @@
 import {
-    LIKE_REQUEST,
-    LIKE_REQUEST_ERROR,
-    LIKE_REQUEST_SUCCESS,
-} from "../action/likeActions";
+    USER_REQUEST,
+    USER_REQUEST_ERROR,
+    USER_REQUEST_SUCCESS
+} from "../action/userActions";
 
 const initialState = {
     status: 'init', //'success' 'loading' 'error'
+    name: '',
     errorMessage: '',
     loading: false,
 };
 
-const likeReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LIKE_REQUEST:
+        case USER_REQUEST:
             return {
                 ...state,
                 status: 'loading',
                 loading: true,
             };
-        case LIKE_REQUEST_SUCCESS:
+        case USER_REQUEST_SUCCESS:
             return {
                 ...state,
                 status: 'success',
+                name: action.name,
                 loading: false,
             }
-        case LIKE_REQUEST_ERROR:
+        case USER_REQUEST_ERROR:
             return {
                 ...state,
                 status: 'error',
@@ -35,4 +37,4 @@ const likeReducer = (state = initialState, action) => {
     }
 }
 
-export default likeReducer;
+export default userReducer;

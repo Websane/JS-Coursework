@@ -1,106 +1,43 @@
 import React, {useEffect, useState} from "react";
-import Auth from "../components/Auth";
-import Back from "../components/Back";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
+
+import Auth from "../components/Auth";
+import Back from "../components/Back";
+
 import {getAuthUrl} from "../action/authActions";
 import {backView} from "../action/backActions";
-import {getToken, tokenDel} from "../action/tokenActions";
-
-//функция проверки наличия токена в локальном хранилище
-export function checkToken() {
-    const token = localStorage.getItem('token');
-    if (token === null) {
-        return false;
-    } else {
-        return true
-    }
-}
-
-// const Header = () => {
-//     const url = useSelector(state => state.auth.url);
-//     const errorMessage = useSelector(state => state.token.errorMessage);
-//     //состояние кнопки "назад"
-//     const back = useSelector(state => state.interaction.back);
-//     //забираем код авторизации из адресной строки
-//     const code = window.location.search.split('code=')[1];
-//
-//     const [textLink, setTextLink] = useState('');
-//     const dispatch = useDispatch();
-//     const history = useHistory();
-//
-//     //эффект при первом рендере
-//     useEffect(() => {
-//         dispatch(getAuthUrl());
-//         if (checkToken()) {
-//             setTextLink('Выйти');
-//         } else {
-//             setTextLink('Авторизация')
-//         }
-//     }, []);
-//     //следим за изменением в адресной строке
-//     useEffect(() => {
-//         if (code && !checkToken()) {
-//             dispatch(getToken(code));
-//             setTextLink('Выйти');
-//         }
-//     }, [code])
-//     //обработчик нажатия "назад"
-//     const handleClick = () => {
-//         history.goBack();
-//         dispatch(backView(false));
-//     };
-//     //обработчик отмены авторизации
-//     const handleClickOut = () => {
-//         localStorage.removeItem('token');
-//         setTextLink('Авторизация');
-//         document.querySelectorAll('.likeOn').forEach(el => el.classList.remove('likeOn')); // -_-
-//         history.push('/');
-//     }
-//
-//     return (
-//         <header className="header">
-//             <div className="container">
-//                 <div className="header__content">
-//                     <Back back={back} handleBackClick={handleClick}/>
-//                     {errorMessage && <div>{errorMessage}</div>}
-//                     <Auth url={url} text={textLink} handle={handleClickOut}/>
-//                 </div>
-//             </div>
-//         </header>
-//     )
-// }
-//
-// export default Header;
+import {tokenDel} from "../action/tokenActions";
 
 const Header = () => {
     const url = useSelector(state => state.auth.url);
-    const errorMessage = useSelector(state => state.token.errorMessage);
+
     const tokenStatus = useSelector(state => state.token.status);
-    const code = window.location.search.split('code=')[1];
+    const errorMessageToken = useSelector(state => state.token.errorMessage);
+
+    const userStatus = useSelector(state => state.user.status);
+    const userName = useSelector(state => state.user.name);
+    const loading = useSelector(state => state.user.loading);
     //состояние кнопки "назад"
     const back = useSelector(state => state.interaction.back);
 
     const [textLink, setTextLink] = useState('');
+    const [user, setUser] = useState('Войдите, чтобы авторизоваться');
+
     const dispatch = useDispatch();
     const history = useHistory();
-
+    //один раз получаем url авторизации
     useEffect(() => {
         dispatch(getAuthUrl());
+    }, [])
+    //следим за статусом токена
+    useEffect(() => {
         if (tokenStatus === 'success') {
-            setTextLink('Выйти');
-        } else if (tokenStatus === 'loading') {
-            setTextLink('Загрузка...');
+            setTextLink('Выход');
         } else {
-            setTextLink('Авторизация');
+            setTextLink('Войти');
         }
     }, [tokenStatus]);
-
-    // useEffect(() => {
-    //     if (code && tokenStatus !== 'success') {
-    //     dispatch(getToken(code));
-    //     }
-    // }, [code, tokenStatus])
 
     //обработчик нажатия "назад"
     const handleClick = () => {
@@ -111,20 +48,34 @@ const Header = () => {
     const handleClickOut = () => {
         localStorage.removeItem('token');
         dispatch(tokenDel());
-        // document.querySelectorAll('.likeOn').forEach(el => el.classList.remove('likeOn')); // -_-
+        setUser('Войдите, чтобы авторизоваться');
         history.push('/');
     }
 
+
+useEffect(() => {
+     if (userStatus === 'success' && tokenStatus === 'success') {
+        setUser(`Привет, ${userName}!`);
+    } else if (userStatus === 'error') {
+        setUser('Ошибка');
+    } else if (loading) {
+        setUser('Загрузка...');
+    }
+}, [userStatus, user, loading, userName])
+
     return (
         <header className="header">
-            <div className="container">
+            <div className="container header__container">
                 <div className="header__content">
                     <Back back={back} handleBackClick={handleClick}/>
-                    {errorMessage && <div>{errorMessage}</div>}
+                    <h1 className="header__title">relax view</h1>
+                    <div className="header__user">{user}</div>
                     <Auth url={url} text={textLink} handle={handleClickOut}/>
                 </div>
             </div>
+            {errorMessageToken && <div className="header__error">{errorMessageToken}</div>}
         </header>
+
     )
 }
 

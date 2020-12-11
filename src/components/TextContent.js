@@ -4,9 +4,9 @@ const TextContent = ({ text }) => {
     const date = new Date(text.created_at).toLocaleString();
 
     return(
-        <div className='userInfo'>
-            <a className='userInfo__link' href={text.user.links.html}>{text.user.username}</a>
-            <small className='userInfo__date'>{date}</small>
+        <div className='photo__user user'>
+            <a className='user__link' href={text.user.links.html}>{text.user.username}</a>
+            <small className='user__date'>{date}</small>
         </div>
     );
 }

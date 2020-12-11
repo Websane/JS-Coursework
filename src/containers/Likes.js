@@ -1,65 +1,7 @@
-// import React, {useEffect, useState} from 'react';
-// import {useDispatch} from "react-redux";
-//
-// import {pushLike, setLikes, unLike} from "../action/likeActions";
-// import {checkToken} from "./Header";
-//
-// const Likes = ({ like, myLike, photoId }) => {
-//     const [valueLike, setValueLike] = useState(like);
-//     const [newMyLike, setNewMyLike] = useState(myLike);
-//     const [touched, setTouched] = useState(0);
-//
-//     const dispatch = useDispatch();
-//     //обработчик лайка
-//     const handleClickLike = () => {
-//         if (checkToken()) {
-//             setTouched(1);
-//             dispatch(pushLike(photoId));
-//             setValueLike(prev => prev + 1);
-//             setNewMyLike(true);
-//         } else {
-//             setTouched(0);
-//             alert('Необходимо авторизоваться');
-//         }
-//     }
-//     //обработчик дизлайка
-//     const handleClickUnLike = () => {
-//         if (checkToken()) {
-//             setTouched(-1);
-//             dispatch(unLike(photoId));
-//             setValueLike(prev => prev - 1);
-//             setNewMyLike(false);
-//         } else {
-//             setTouched(0);
-//             alert('Необходимо авторизоваться')
-//         }
-//     }
-//
-//     //при любом изменении в лайках диспатчим в стор новые данные
-//     useEffect(() => {
-//         if (touched !== 0) {
-//             dispatch(setLikes(photoId, valueLike, newMyLike));
-//         }
-//     }, [touched])
-//
-//     return (
-//         <div className="likes">
-//             <div className="likes__number">{valueLike}</div>
-//             {!newMyLike &&
-//             <button className="likes__button" onClick={handleClickLike} />}
-//             {newMyLike &&
-//             <button className="likes__button likeOn" onClick={handleClickUnLike} />}
-//         </div>
-//     );
-// }
-
-// export default Likes;
-
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {setLike, setLikes} from "../action/likeActions";
-
 
 const Likes = ({ like, myLike, photoId }) => {
     const [valueLike, setValueLike] = useState(like);
@@ -85,14 +27,15 @@ const Likes = ({ like, myLike, photoId }) => {
         if (touched) {
             dispatch(setLikes(photoId, valueLike, newMyLike));
         }
-    }, [touched])
+    }, [touched, dispatch, photoId, valueLike, newMyLike])
 
-    let likeOn = newMyLike ? ' likeOn' : '';
+    const likeOn = newMyLike ? ' likeOn' : '';
+    const ariaLabel = newMyLike ? 'удалить лайк' : 'поставить лайк';
 
     return (
-        <div className="likes">
+        <div className="photo__likes likes">
             <div className="likes__number">{valueLike}</div>
-            <button className={`likes__button${likeOn}`} onClick={handleClick} />
+            <button className={`likes__button${likeOn}`} onClick={handleClick} aria-label={ariaLabel}/>
         </div>
     );
 }

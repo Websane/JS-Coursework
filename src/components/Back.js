@@ -1,15 +1,9 @@
 import React from "react";
 
 function Back ({ back, handleBackClick }) {
-
-    let newClass = 'hidden';
-
-    if (back === true ) {
-        newClass = 'back'
-    }
-
+    const newClass = back ? 'back' : 'back hidden';
     return (
-        <button className={newClass} onClick={handleBackClick} />
+        <button className={newClass} onClick={handleBackClick} aria-label="вернуться назад" />
     )
 }
 

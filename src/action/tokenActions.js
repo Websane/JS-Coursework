@@ -28,8 +28,7 @@ export const getToken = (code) => (dispatch) => {
     unsplash.auth.userAuthentication(code)
         .then(toJson)
         .then(response => {
-            const token = response.access_token;
-            localStorage.setItem('token', JSON.stringify(token));
+            localStorage.setItem('token', JSON.stringify(response.access_token));
             unsplash.auth.setBearerToken(response.access_token);
             dispatch(tokenRequestSuccess());
         })
