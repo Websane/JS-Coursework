@@ -8,12 +8,12 @@ import Back from "../components/Back";
 import {getAuthUrl} from "../action/authActions";
 import {backView} from "../action/backActions";
 import {tokenDel} from "../action/tokenActions";
+import {userDel} from "../action/userActions";
 
 const Header = () => {
     const url = useSelector(state => state.auth.url);
 
     const tokenStatus = useSelector(state => state.token.status);
-    const errorMessageToken = useSelector(state => state.token.errorMessage);
 
     const userStatus = useSelector(state => state.user.status);
     const userName = useSelector(state => state.user.name);
@@ -29,15 +29,15 @@ const Header = () => {
     //один раз получаем url авторизации
     useEffect(() => {
         dispatch(getAuthUrl());
-    }, [])
-    //следим за статусом токена
+    }, [dispatch])
+    //следим за статусом токена и юзера
     useEffect(() => {
-        if (tokenStatus === 'success') {
+        if (tokenStatus === 'success' && userStatus === 'success') {
             setTextLink('Выход');
         } else {
             setTextLink('Войти');
         }
-    }, [tokenStatus]);
+    }, [tokenStatus, userStatus]);
 
     //обработчик нажатия "назад"
     const handleClick = () => {
@@ -48,13 +48,13 @@ const Header = () => {
     const handleClickOut = () => {
         localStorage.removeItem('token');
         dispatch(tokenDel());
+        dispatch(userDel());
         setUser('Войдите, чтобы авторизоваться');
         history.push('/');
     }
 
-
 useEffect(() => {
-     if (userStatus === 'success' && tokenStatus === 'success') {
+     if (userStatus === 'success') {
         setUser(`Привет, ${userName}!`);
     } else if (userStatus === 'error') {
         setUser('Ошибка');
@@ -66,14 +66,13 @@ useEffect(() => {
     return (
         <header className="header">
             <div className="container header__container">
-                <div className="header__content">
-                    <Back back={back} handleBackClick={handleClick}/>
-                    <h1 className="header__title">relax view</h1>
+                <Back back={back} handleBackClick={handleClick}/>
+                <h1 className="header__title">relax view</h1>
+                <div className="header__right">
                     <div className="header__user">{user}</div>
                     <Auth url={url} text={textLink} handle={handleClickOut}/>
                 </div>
             </div>
-            {errorMessageToken && <div className="header__error">{errorMessageToken}</div>}
         </header>
 
     )

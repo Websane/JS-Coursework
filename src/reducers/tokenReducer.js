@@ -7,6 +7,7 @@ import {
 
 const initialState = {
     status: 'init', //'success' 'loading' 'error'
+    token: '',
     errorMessage: '',
     loading: false,
 };
@@ -23,6 +24,7 @@ const tokenReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: 'success',
+                token: action.token,
                 loading: false,
             }
         case TOKEN_REQUEST_ERROR:
@@ -36,6 +38,7 @@ const tokenReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: 'init',
+                token: action.token,
             }
         default: return state
     }

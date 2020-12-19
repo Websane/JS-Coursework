@@ -5,7 +5,6 @@ import MoreButton from "../components/MoreButton";
 import Photo from "../components/Photo";
 
 import {photosRequestAsync} from "../action/photosActions";
-import {backView} from "../action/backActions";
 import {getToken} from "../action/tokenActions";
 import {getUser} from "../action/userActions";
 
@@ -20,15 +19,10 @@ const Wall = () => {
     const code = window.location.search.split('code=')[1];
 
     const tokenStatus = useSelector(state => state.token.status);
-    const localToken = localStorage.getItem('token');
+    const tokenError = useSelector(state => state.token.errorMessage)
+    const userStatus = useSelector(state => state.user.status);
 
     const dispatch = useDispatch();
-    //скрываем визуализацию отмеченных лайков при отсутствии токена
-    useEffect(() => {
-        if (tokenStatus === 'init') {
-            document.querySelectorAll('.likeOn').forEach(el => el.classList.remove('likeOn'));
-        }
-    }, [tokenStatus])
 
     //получаем константу чтоб отметить нужный элемент
     const bottomOfList = useRef(null);
@@ -54,29 +48,33 @@ const Wall = () => {
                 observer.unobserve(bottom);
             }
         }
-    }, [page, perPage, dispatch])
+    }, [page, perPage, dispatch]);
+
     //получаем токен при появлении в адресной строке code
     useEffect(() => {
-        if (code && tokenStatus === 'init' && !localToken || localToken === undefined && authStatus === 'success') {
+        if (code && tokenStatus === 'init' && authStatus === 'success') {
             dispatch(getToken(code));
         }
-    }, [code, authStatus])
-    //после получения токена загружаем фото только после того как ответ получен, если его нет, просто загружаем
+    }, [code, authStatus, tokenStatus, dispatch]);
+
     useEffect(() => {
-         if (tokenStatus === 'success' && page === 1) {
-             dispatch(getUser());
-             dispatch(photosRequestAsync(page, perPage));
-         } else if (!code && tokenStatus === 'init' && page === 1) {
-             dispatch(photosRequestAsync(page, perPage));
-         } else if (tokenStatus === 'init' && localToken) {
-             dispatch(photosRequestAsync(page, perPage));
-         }
-    }, [tokenStatus, code]);
+        if (!code && page === 1) {
+            dispatch(photosRequestAsync(page, perPage));
+        }
+    }, [code, dispatch, page, perPage])
+
+    useEffect(() => {
+        if (tokenStatus === 'success' && userStatus === 'init') {
+            dispatch(getUser());
+        } else if (tokenStatus === 'success' && userStatus === 'success' && page === 1) {
+            dispatch(photosRequestAsync(page, perPage));
+        }
+    }, [tokenStatus, userStatus, dispatch, page, perPage]);
 
     //обработчик загрузок дополнительных списков фото
     const handleLoadNextPage = useCallback(() => {
         dispatch(photosRequestAsync(page, perPage))
-    }, [page, perPage]);
+    }, [page, perPage, dispatch]);
 
     return(
         <section className="wall">
@@ -95,6 +93,10 @@ const Wall = () => {
 
                 {errorMessage && (
                     <div className="loadingPhoto">{errorMessage}</div>
+                )}
+
+                {tokenError === 'invalid_grant' && (
+                    <div className="loadingPhoto">Необходимо авторизоваться</div>
                 )}
                 {page % 10 === 0 && <MoreButton handleClick={handleLoadNextPage}/>}
             </div>

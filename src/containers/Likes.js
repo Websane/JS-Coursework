@@ -22,6 +22,12 @@ const Likes = ({ like, myLike, photoId }) => {
             alert('Необходимо авторизоваться')
         }
     }
+    //скрываем визуализацию отмеченных лайков при отсутствии токена
+    useEffect(() => {
+        if (tokenStatus === 'init') {
+            document.querySelectorAll('.likeOn').forEach(el => el.classList.remove('likeOn'));
+        }
+    }, [tokenStatus])
     //при любом изменении в лайках диспатчим в стор новые данные
     useEffect(() => {
         if (touched) {

@@ -1,4 +1,5 @@
 import {
+    USER_DELETE,
     USER_REQUEST,
     USER_REQUEST_ERROR,
     USER_REQUEST_SUCCESS
@@ -32,6 +33,12 @@ const userReducer = (state = initialState, action) => {
                 status: 'error',
                 errorMessage: action.error,
                 loading: false,
+            }
+        case USER_DELETE:
+            return {
+                ...state,
+                status: 'init',
+                name: action.name,
             }
         default: return state
     }
