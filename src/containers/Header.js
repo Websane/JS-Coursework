@@ -67,7 +67,7 @@ useEffect(() => {
         <header className="header">
             <div className="container header__container">
                 <Back back={back} handleBackClick={handleClick}/>
-                <h1 className="header__title">relax view</h1>
+                <span className="header__logo">relax view</span>
                 <div className="header__right">
                     <div className="header__user">{user}</div>
                     <Auth url={url} text={textLink} handle={handleClickOut}/>

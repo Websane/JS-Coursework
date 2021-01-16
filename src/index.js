@@ -8,6 +8,7 @@ import 'normalize.css';
 
 const app = (
     <Provider store={store}>
+        <h1 className="visually-hidden">Фотографии со всего света Relax View</h1>
         <App />
     </Provider>
 )

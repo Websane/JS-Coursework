@@ -7,4 +7,5 @@ export const unsplash = new Unsplash({
     // Важно: этот адрес обязательно должен быть указан в настройках приложения
     callbackUrl: 'http://localhost:3000/auth/',
     // callbackUrl: `${window.location.origin}/auth`,
+    // callbackUrl: 'https://websane.site/auth/'
 });

@@ -24,7 +24,6 @@ const photosReducer = (state = initialState, action) => {
             };
         case PHOTOS_REQUEST_SUCCESS:
             let newPhotos = state.photos.concat(action.data.photos);
-            console.log(action.data)
             let newPage = action.data.page + 1;
             return {
                 ...state,
@@ -42,12 +41,10 @@ const photosReducer = (state = initialState, action) => {
             }
         case SET_PHOTO_LIKES:
             const newArray = state.photos.slice();
-            console.log(newArray)
             let photo = newArray.find(item => item.id === action.id);
             const ind = newArray.findIndex(item => item.id === action.id);
             photo = {...photo, likes: action.likes, liked_by_user: action.myLike};
             newArray.splice(ind, 1, photo);
-            console.log(newArray)
             return {
                 ...state,
                 photos: newArray,
