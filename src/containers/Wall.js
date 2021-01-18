@@ -7,6 +7,7 @@ import Photo from "../components/Photo";
 import {photosRequestAsync} from "../action/photosActions";
 import {getToken} from "../action/tokenActions";
 import {getUser} from "../action/userActions";
+import {backView} from "../action/backActions";
 
 const Wall = () => {
     const photos = useSelector(state => state.wall.photos);
@@ -23,6 +24,7 @@ const Wall = () => {
     const userStatus = useSelector(state => state.user.status);
 
     const statusPhotos = useSelector(state => state.wall.status);
+    const back = useSelector(state => state.interaction.back);
 
     const dispatch = useDispatch();
 
@@ -72,6 +74,12 @@ const Wall = () => {
             dispatch(photosRequestAsync(page, perPage));
         }
     }, [tokenStatus, userStatus, dispatch, page, perPage]);
+    //следим чтоб кнопка назад не появилась при переходе назад в браузере
+    useEffect(() => {
+        if (back) {
+            dispatch(backView(false));
+        }
+    }, [dispatch, back])
 
     //обработчик загрузок дополнительных списков фото
     const handleLoadNextPage = useCallback(() => {

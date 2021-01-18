@@ -52,6 +52,10 @@ const Header = () => {
         setUser('Войдите, чтобы авторизоваться');
         history.push('/');
     }
+    //отменяем фокус при клике
+    const handleMouseDown = (ev) => {
+        ev.preventDefault();
+    }
 
 useEffect(() => {
      if (userStatus === 'success') {
@@ -66,7 +70,7 @@ useEffect(() => {
     return (
         <header className="header">
             <div className="container header__container">
-                <Back back={back} handleBackClick={handleClick}/>
+                <Back back={back} handleBackClick={handleClick} handleMouseDown={handleMouseDown}/>
                 <span className="header__logo">relax view</span>
                 <div className="header__right">
                     <div className="header__user">{user}</div>

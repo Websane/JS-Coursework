@@ -22,6 +22,10 @@ const Likes = ({ like, myLike, photoId }) => {
             alert('Необходимо авторизоваться')
         }
     }
+
+    const handleMouseDown = (ev) => {
+        ev.preventDefault();
+    }
     //скрываем визуализацию отмеченных лайков при отсутствии токена
     useEffect(() => {
         if (tokenStatus === 'init') {
@@ -41,7 +45,7 @@ const Likes = ({ like, myLike, photoId }) => {
     return (
         <div className="photo__likes likes">
             <div className="likes__number">{valueLike}</div>
-            <button className={`likes__button${likeOn}`} onClick={handleClick} aria-label={ariaLabel}/>
+            <button className={`likes__button${likeOn}`} onClick={handleClick} onMouseDown={handleMouseDown} aria-label={ariaLabel}/>
         </div>
     );
 }
