@@ -186,10 +186,18 @@ button {
 }
 
 .loadingPhoto {
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
     display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 24px;
+    width: 64px;
+    height: 64px;
+    background: transparent;
+    background-image: url("img/load.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 .more__button {

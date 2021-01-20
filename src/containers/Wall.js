@@ -28,7 +28,7 @@ const Wall = () => {
 
     const dispatch = useDispatch();
 
-    //получаем константу чтоб отметить нужный элемент
+    //получаем ссылку на нужный компонент DOM дерева
     const bottomOfList = useRef(null);
 
     useEffect(() => {
@@ -40,7 +40,6 @@ const Wall = () => {
         }, {
             rootMargin: '5px',
         })
-
         const bottom = bottomOfList.current;
         //говорим наблюдателю, за каким элементом смотреть
         if (bottom) {
@@ -99,7 +98,7 @@ const Wall = () => {
                     </div>
 
                     {loading && (
-                        <div className="loadingPhoto">Загрузка фото...</div>
+                        <div className="loadingPhoto"></div>
                     )}
 
                     {errorMessage && (
